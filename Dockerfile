@@ -1,5 +1,5 @@
 # Step 1: Build Stage
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.6-eclipse-temurin-17 AS build
 
 # Working directory
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Step 2: Production Stage
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jdk AS runtime
 
 # Set the working directory
 WORKDIR /app
