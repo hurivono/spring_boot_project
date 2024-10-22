@@ -9,7 +9,7 @@ on:
         default: "main"
 
 env:
-  GIT_OPS_NAME: vivaldi-ops
+  # GIT_OPS_NAME: vivaldi-ops
   OPS_DIR: charts/${{ github.event.repository.name }}
   
 jobs:
@@ -66,37 +66,37 @@ jobs:
         vuln-type: "os,library"
         severity: "CRITICAL,HIGH"
         
-    # kustomize 명령을 가져온다.
-    - name: Setup Kustomize
-      uses: imranismail/setup-kustomize@v1
+#     # kustomize 명령을 가져온다.
+#     - name: Setup Kustomize
+#       uses: imranismail/setup-kustomize@v1
 
-    - name: Checkout kustomize repository
-      uses: actions/checkout@v2
-      with:
-        # kubernetes 설정정보 저장소
-        repository: ${{ github.repository_owner }}/spring_boot_project
-        ref: master
-        # 다른 저장소에 push 하려면 Personal Access Token이 필요.
-        token: ${{ secrets.ACTION_TOKEN }} # ${{ secrets.GITHUB_TOKEN }} 
-        path: ${{ env.GIT_OPS_NAME }}
+#     - name: Checkout kustomize repository
+#       uses: actions/checkout@v2
+#       with:
+#         # kubernetes 설정정보 저장소
+#         repository: ${{ github.repository_owner }}/spring_boot_project
+#         ref: main
+#         # 다른 저장소에 push 하려면 Personal Access Token이 필요.
+#         token: ${{ secrets.ACTION_TOKEN }} # ${{ secrets.GITHUB_TOKEN }} 
+#         path: ${{ env.GIT_OPS_NAME }}
         
-    # 새 이미지 버전으로 파일 수정
-    - name: Update Kubernetes resources
-      run: |
-        pwd
-        cd ${{ env.GIT_OPS_NAME }}/${{ env.OPS_DIR }}
-        kustomize edit set image ${{ secrets.AZURE_URL }}/${{ steps.meta.outputs.tags }}
-        cat kustomization.yaml
+#     # 새 이미지 버전으로 파일 수정
+#     - name: Update Kubernetes resources
+#       run: |
+#         pwd
+#         cd ${{ env.GIT_OPS_NAME }}/${{ env.OPS_DIR }}
+#         kustomize edit set image ${{ secrets.AZURE_URL }}/${{ steps.meta.outputs.tags }}
+#         cat kustomization.yaml
         
-# kustomize edit set image ${{ github.repository }}=${{ secrets.AZURE_URL }}/${{ steps.meta.outputs.tags }}
+# # kustomize edit set image ${{ github.repository }}=${{ secrets.AZURE_URL }}/${{ steps.meta.outputs.tags }}
    
-    # 수정된 파일 commit & push
-    - name: Commit minifest files
-      run: |
-        cd ${{ env.GIT_OPS_NAME }}/${{ env.OPS_DIR }}
-        git checkout HEAD
-        git config --global user.email "jungchihoon@gmail.com"
-        git config --global user.name "jungchihoon"
-        git commit -am 'update image tag  ${{ env.NOW }} from Github Action'
-        cat kustomization.yaml
-        git push origin HEAD
+#     # 수정된 파일 commit & push
+#     - name: Commit minifest files
+#       run: |
+#         cd ${{ env.GIT_OPS_NAME }}/${{ env.OPS_DIR }}
+#         git checkout HEAD
+#         git config --global user.email "jungchihoon@gmail.com"
+#         git config --global user.name "jungchihoon"
+#         git commit -am 'update image tag  ${{ env.NOW }} from Github Action'
+#         cat kustomization.yaml
+#         git push origin HEAD
