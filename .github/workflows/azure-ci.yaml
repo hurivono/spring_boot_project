@@ -75,7 +75,7 @@ jobs:
       with:
         # kubernetes 설정정보 저장소
         repository: ${{ github.repository_owner }}/${{ env.GIT_OPS_NAME }}
-        ref: main
+        ref: master
         # 다른 저장소에 push 하려면 Personal Access Token이 필요.
         token: ${{ secrets.ACTION_TOKEN }} # ${{ secrets.GITHUB_TOKEN }} 
         path: ${{ env.GIT_OPS_NAME }}
