@@ -19,7 +19,7 @@ WORKDIR /app
 
 # Create the log directory and set permissions
 RUN mkdir -p /var/log/edu && \
-    chown $(whoami) /var/log/edu
+    chmod 777 /var/log/edu
 
 # Copy the jar file from the build stage
 COPY --from=build /app/target/*.jar app.jar
