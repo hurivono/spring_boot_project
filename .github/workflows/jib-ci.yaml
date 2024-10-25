@@ -1,4 +1,4 @@
-name: Deploy Azure with Gitops-Kustomize
+name: jib - Deploy Azure with Gitops-Kustomize
 
 on:      
   workflow_dispatch:
