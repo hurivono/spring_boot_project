@@ -1,0 +1,22 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'  # 원하는 Java 버전으로 변경
+
+      - name: Build and push with Jib
+        run: mvn compile jib:build -Dimage=<your-docker-image-name> -Dregistry=<your-docker-registry> -Dusername=${{ secrets.DOCKER_USERNAME }} -Dpassword=${{ secrets.DOCKER_PASSWORD }}
